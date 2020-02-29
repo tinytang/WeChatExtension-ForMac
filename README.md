@@ -3,7 +3,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.3.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.3.29-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.4.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
 
 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac),由此进.
 
@@ -11,10 +11,10 @@
 - 适用于Mac版的WeChat拓展功能. 1.7.5代码来自于WeChatPlugin, 对[tk](https://github.com/TKkk-iOSer)在此表示感谢!
 
 ## 最新支持版本
--  mac版微信2.3.29
+-  mac版微信2.4.0
 
 ## 同时支持自定义回复和AI自动撩妹
-- 腾讯AI人工智能(ZZ)自动回复, 能理解上下文语义, 在收到指定对象消息后的5~8秒内自动回复消息(大部分情况下比较智能, 偶尔智障).
+- 腾讯AI人工智能(ZZ)自动回复, 能理解上下文语义. 经过大量临床试验和大家反馈, 腾讯这个AI接口回复十分智障, 慎用.
 - 自定义自动回复
 
 <p align="center">
@@ -59,11 +59,12 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20191227-200134%402x.png" width="800px"/>
 </p>
 
-## 屏蔽更新
-勾选"禁止更新"后, 微信检测更新的逻辑会被屏蔽掉, 包括手动"检查更新"的按钮. 取消勾选"禁止更新"后并重启微信, 则恢复原有更新检测逻辑.
+## 微信多开兼容小程序
 <p align="center">
-<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20190726-183915%402x.png" width="800px"/>
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/MiniProgram.png" width="800px"/>
 </p>
+
+
 
 ## 怎么安装?
 ### 1.普通安装(clone最新版本并安装)
@@ -164,6 +165,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-02-25 兼容微信2.4.0, 修复小程序不能打开BUG, 并兼容微信多开
 2019-12-27 退群提醒
 2019-12-23 发布2.3.0版本, 新增显示小程序信息, 转账金额
 2019-12-22 还原老版自动回复, 优化AI自动回复界面
@@ -201,4 +203,12 @@ This project exists thanks to all the people who contribute.
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/mustangym666#backer)]
 
 <a href="https://opencollective.com/mustangym666#backers" target="_blank"><img src="https://opencollective.com/mustangym666/backers.svg?width=890"></a>
+
+## 交流与支持
+<p align="left">
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/aliPay.png" width="200px"/>
+</p>
+
+
+QQ群 741941325
 
