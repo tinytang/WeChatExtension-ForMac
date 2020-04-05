@@ -27,6 +27,7 @@
 #import<CommonCrypto/CommonDigest.h>
 #import "YMIMContactsManager.h"
 
+
 @implementation NSObject (WeChatHook)
 
 + (void)hookWeChat {
@@ -101,98 +102,8 @@
     
     [self setup];
     
-    
-    //暂不执行以下代码, 关于黑夜模式的修改, 但还存在一定的问题, 想尝鲜的小伙伴可以把以下代码注释打开, 编译后自己放到微信里面玩.
-//    hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_initWithFrame:));
-//
-//     hookMethod(objc_getClass("MMComposeInputViewController"), @selector(viewDidLoad), [self class], @selector(hook_ComposeInputViewControllerViewDidLoad));
-//
-//     hookMethod(objc_getClass("MMChatMessageViewController"), @selector(viewDidLoad), [self class], @selector(hook_ChatMessageViewControllerViewDidLoad));
-//
-//    hookMethod(objc_getClass("NSScrollView"), @selector(initWithFrame:), [self class], @selector(hook_scrollViewInitWithFrame:));
-//
-//    hookMethod(objc_getClass("MMChatsTableCellView"), @selector(initWithFrame:), [self class], @selector(cellhook_initWithFrame:));
-//    hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
-    
 }
 
-- (void)hook_setTextColor:(NSColor *)arg1
-{
-    arg1 = kRGBColor(49, 110, 105, 1);
-    [self hook_setTextColor:arg1];
-}
-
-- (id)cellhook_initWithFrame:(struct CGRect)arg1
-{
-    return [self cellhook_initWithFrame:arg1];
-}
-
-- (instancetype)hook_scrollViewInitWithFrame:(NSRect)frameRect {
-    NSScrollView *view = (NSScrollView *)self;
-    [[YMThemeMgr shareInstance] changeTheme:view.contentView];
-    return [self hook_scrollViewInitWithFrame:frameRect];
-}
-
-- (void)hook_ChatMessageViewControllerViewDidLoad {
-    [self hook_ChatMessageViewControllerViewDidLoad];
-}
-- (void)hook_ComposeInputViewControllerViewDidLoad {
-    [self hook_ComposeInputViewControllerViewDidLoad];
-    MMComposeInputViewController *controller = (MMComposeInputViewController *)self;
-    [[YMThemeMgr shareInstance] changeTheme:controller.view];
-}
-
-- (void)hook_initWithFrame:(NSView *)view {
-    [self hook_initWithFrame:view];
-    
-    if ([view isKindOfClass:[objc_getClass("NSButtonImageView") class]]) {
-        return;
-    }
-    
-    NSResponder *responder = view;
-    NSViewController *controller = nil;
-    while ((responder = [responder nextResponder])){
-        if ([responder isKindOfClass: [NSViewController class]]){
-           controller = (NSViewController *)responder;
-        }
-    }
-    
-    
-    if ([view isKindOfClass:[objc_getClass("MMComposeTextView") class]]) {
-        MMComposeTextView *textView = (MMComposeTextView *)view;
-        textView.insertionPointColor = [NSColor whiteColor];
-        textView.backgroundColor = kRGBColor(113, 113, 117, 1.0);
-    }
-    
-    if ([view isKindOfClass:[objc_getClass("SwipeDeleteView") class]]) {
-        [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-    
-    if ([view isKindOfClass:[objc_getClass("MMFavoritesListMediaCell") class]]) {
-        [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-    if ([controller isKindOfClass:[objc_getClass("MMChatMessageViewController") class]]) {
-        MMChatMessageViewController *msgViewController = (MMChatMessageViewController *)controller;
-        [msgViewController.messageTableView setBackgroundColor:kRGBColor(61, 62, 60, 1)];
-        [[msgViewController.messageTableView enclosingScrollView] setDrawsBackground:NO];
-        [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-    if ( [controller isKindOfClass:[objc_getClass("MMComposeInputViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMMainViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMContactsDetailViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMFavoriteDetailViewContoller") class]]
-        ) {
-        
-      [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-}
 
 //主控制器的生命周期
 - (void)hook_mainViewControllerDidLoad {
@@ -514,7 +425,21 @@
     [self hook_viewWillAppear];
     
     BOOL autoAuthEnable = [[TKWeChatPluginConfig sharedConfig] autoAuthEnable];
-    if (![self.className isEqualToString:@"MMLoginOneClickViewController"] || !autoAuthEnable) return;
+    WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
+     MMLoginOneClickViewController *loginVC = wechat.mainWindowController.loginViewController.oneClickViewController;
+    
+    if (![self.className isEqualToString:@"MMLoginOneClickViewController"]) {
+        return;
+    } else {
+        if ([TKWeChatPluginConfig sharedConfig].darkMode || [TKWeChatPluginConfig sharedConfig].pinkMode) {
+            [[YMThemeMgr shareInstance] changeTheme:loginVC.view];
+        }
+    }
+    
+    if (!autoAuthEnable) {
+        return;
+    }
+    
 
     NSButton *autoLoginButton = ({
         NSButton *btn = [NSButton tk_checkboxWithTitle:@"" target:self action:@selector(selectAutoLogin:)];
@@ -527,8 +452,6 @@
         btn;
     });
     
-    WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
-    MMLoginOneClickViewController *loginVC = wechat.mainWindowController.loginViewController.oneClickViewController;
     [loginVC.view addSubview:autoLoginButton];
     
     BOOL autoLogin = [[TKWeChatPluginConfig sharedConfig] autoLoginEnable];

@@ -31,6 +31,11 @@ static NSString * const kTKWeChatResourcesPath = @"/Applications/WeChat.app/Cont
 static NSString * const kTKWeChatRemotePlistPath = @"https://raw.githubusercontent.com/MustangYM/WeChatExtension-ForMac/master/WeChatExtension/WeChatExtension/Base.lproj/Info.plist";
 static NSString * const kisAllowMoreOpenBaby = @"kisAllowMoreOpenBaby";
 
+static NSString * const kDarkMode = @"kDarkMode";
+static NSString * const kPinkMode = @"kPinkMode";
+static NSString * const kGroupMultiColorMode = @"kGroupMultiColorMode";
+static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
+
 @interface TKWeChatPluginConfig ()
 
 @property (nonatomic, copy) NSString *remoteControlPlistFilePath;
@@ -72,8 +77,40 @@ static NSString * const kisAllowMoreOpenBaby = @"kisAllowMoreOpenBaby";
         _preventAsyncRevokeChatRoom = [[NSUserDefaults standardUserDefaults] boolForKey:KPreventAsyncRevokeChatRoom];
         _quitMonitorEnable = [[NSUserDefaults standardUserDefaults] boolForKey:KQuitMonitorChatRoom];
         _isAllowMoreOpenBaby = [[NSUserDefaults standardUserDefaults] boolForKey:kisAllowMoreOpenBaby];
+        _darkMode = [[NSUserDefaults standardUserDefaults] boolForKey:kDarkMode];
+        _pinkMode = [[NSUserDefaults standardUserDefaults] boolForKey:kPinkMode];
+        _groupMultiColorMode = [[NSUserDefaults standardUserDefaults] boolForKey:kGroupMultiColorMode];
+        _isThemeLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kFirstLoadMode];
     }
     return self;
+}
+
+- (void)setPinkMode:(BOOL)pinkMode
+{
+    _pinkMode = pinkMode;
+    [[NSUserDefaults standardUserDefaults] setBool:pinkMode forKey:kPinkMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setGroupMultiColorMode:(BOOL)groupMultiColorMode
+{
+    _groupMultiColorMode = groupMultiColorMode;
+    [[NSUserDefaults standardUserDefaults] setBool:groupMultiColorMode forKey:kGroupMultiColorMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setIsThemeLoaded:(BOOL)isThemeLoaded
+{
+    _isThemeLoaded = isThemeLoaded;
+    [[NSUserDefaults standardUserDefaults] setBool:isThemeLoaded forKey:kFirstLoadMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setDarkMode:(BOOL)darkMode
+{
+    _darkMode = darkMode;
+    [[NSUserDefaults standardUserDefaults] setBool:darkMode forKey:kDarkMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setIsAllowMoreOpenBaby:(BOOL)isAllowMoreOpenBaby
