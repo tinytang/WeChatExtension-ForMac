@@ -10,6 +10,7 @@
 #import "YMAIReplyCell.h"
 #import "YMAutoReplyModel.h"
 #import "TKWeChatPluginConfig.h"
+#import "YMThemeManager.h"
 
 @interface YMAIReplyWindowController ()<NSTabViewDelegate, NSTableViewDataSource>
 @property (nonatomic, strong) NSTableView *tableView;
@@ -22,7 +23,8 @@
 
 @implementation YMAIReplyWindowController
 
-- (void)windowDidLoad {
+- (void)windowDidLoad
+{
     [super windowDidLoad];
     if ([[TKWeChatPluginConfig sharedConfig] AIReplyModel]) {
         self.AIModel = [[TKWeChatPluginConfig sharedConfig] AIReplyModel];
@@ -34,7 +36,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowShouldClosed:) name:NSWindowWillCloseNotification object:nil];
 }
 
-- (void)windowShouldClosed:(NSNotification *)notification {
+- (void)windowShouldClosed:(NSNotification *)notification
+{
     if (notification.object != self.window) {
         return;
     }
@@ -66,6 +69,10 @@
         column.title = YMLocalizedString(@"assistant.autoReply.list");
         column.width = 300;
         [tableView addTableColumn:column];
+        if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
+            [[YMThemeManager shareInstance] changeTheme:tableView color:[TKWeChatPluginConfig sharedConfig].mainChatCellBackgroundColor];
+        }
+
         tableView;
     });
     
@@ -103,7 +110,8 @@
                                            self.desLabel]];
 }
 
-- (void)addModel {
+- (void)addModel
+{
     MMSessionPickerWindow *picker = [objc_getClass("MMSessionPickerWindow") shareInstance];
     [picker setType:1];
     [picker setShowsGroupChats:0x1];
@@ -127,7 +135,8 @@
     }];
 }
 
-- (void)reduceModel {
+- (void)reduceModel
+{
     if (self.currentIdx< self.AIModel.specificContacts.count) {
         NSMutableArray *array = [NSMutableArray array];
         [self.AIModel.specificContacts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -141,11 +150,13 @@
 }
 
 #pragma mark -
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
     return self.AIModel.specificContacts.count;
 }
 
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
     YMAIReplyCell *cell = [[YMAIReplyCell alloc] init];
     cell.frame = NSMakeRect(0, 0, self.tableView.frame.size.width, 40);
     if (row < self.AIModel.specificContacts.count) {
@@ -154,11 +165,13 @@
     return cell;
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
     return 50;
 }
 
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
     NSTableView *tableView = notification.object;
     self.reduceButton.enabled = tableView.selectedRow != -1;
     if (tableView.selectedRow != -1) {
