@@ -7,7 +7,7 @@
 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
-- Most users of this project are Chinese, so there is `no English wiki`.
+- Most users of this project are Chinese, so there is `NO ENGLISH WIKI`.
 
 ## 声明
 - WeChatExtension完全`免费`，近期发现不少三方平台甚至某宝商家`出售`此软件，切勿`上当受骗`。
@@ -95,7 +95,7 @@
 - 微信版本`>=2.4.2（15650）`才支持此功能。
 - 群员监控Window中，鼠标右键单击左侧`Session`列表某行出现`拒收消息`，可以在Mac上完全拒收此群消息，避免打扰。
 - 右侧列表是依次是`昵称`、相关`发言时间与条数`、`违规言论`、`拼多多砍一刀`。
-- 此功能暂时属于`实验性质`，毕竟对大部人并不会使用到。
+- 此功能暂时属于`实验性质`。
 <p align="center">
 <img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/ZGMP.png" width="800px"/>
 </p>
@@ -470,6 +470,16 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/SatanZS"><img src="https://avatars0.githubusercontent.com/u/8230677?s=400&u=0a628322a190b1c1c87f033290ea32568ea33342&v=4" width="100px;" alt="SatanZS"/>
   <br></br><sub><b>SatanZS</b></sub>
+  
+   <td align="center">
+  <a href="https://github.com/huiyi0521"><img src="https://avatars1.githubusercontent.com/u/25707915?s=400&v=4" width="100px;" alt="huiyi0521"/>
+  <br></br><sub><b>huiyi0521</b></sub>
+  
+   <td align="center">
+  <a href="https://github.com/findyou"><img src="https://avatars3.githubusercontent.com/u/6084594?s=400&u=859774b13ae172e04894150094211ed2239cfec9&v=4" width="100px;" alt="findyou"/>
+  <br></br><sub><b>findyou</b></sub>
+ 
+   </td></tr></table>
   
    </td></tr></table>
 
